@@ -2,7 +2,7 @@ import requests
 from faker import Faker
 from pytest_steps import test_steps
 
-from modules.goal_methods import create_goal, delete_goal, update_goal, get_goal
+from modules.goal_methods import create_goal, delete_goal, update_goal, get_goal, post_goal_invalid
 
 fake = Faker()
 my_headers = {"Authorization": "pk_200589300_JCKLZL75NT02BXJ5IT3H76WVZJO0Q892"}
@@ -12,7 +12,8 @@ def test_get_gaols():
     assert result.status_code == 200
     print("Test 1 passed")
     assert result.json()["goals"][0]["name"] == "Goal_2_05052525"
-    print("Test 2 passed")
+
+
 
 @test_steps("create new goal", "get created goal", "delete created goal")
 def test_create_gaol():
@@ -104,3 +105,7 @@ def test_get_gaol_error():
       result = requests.get("https://api.clickup.com/api/v2/goal/" + id, headers={"Authorization": "pk_194692916_BFERPF4Z74VSU"})
       assert result.status_code == 401
       yield
+
+def test_post_goal_invalid():
+    result = post_goal_invalid()
+    assert result.status_code == 401

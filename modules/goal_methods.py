@@ -29,3 +29,13 @@ def get_goal(id):
     result = requests.get("https://api.clickup.com/api/v2/goal/" + id, headers=my_headers)
     print(result)
     return result
+
+
+def post_goal_invalid():
+    random_name = fake.first_name()
+    body = {
+        "name": random_name
+    }
+    result = requests.post("https://api.clickup.com/api/v2/team/90151257280/goal", headers={"Authorization": "pk_194692916_BFERPF4Z74VSU"}, json=body)
+    print(result)
+    return result
